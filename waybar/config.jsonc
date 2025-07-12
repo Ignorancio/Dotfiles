@@ -1,0 +1,122 @@
+{
+  "height": 30,
+  "spacing": 5,
+
+  //   "modules-left": ["sway/workspaces", "custom/media"],
+  //   "modules-center": ["sway/window"],
+
+  "modules-left": ["hyprland/workspaces", "custom/media"],
+  "modules-center": ["hyprland/window"],
+  "modules-right": [
+    "pulseaudio/slider",
+    "pulseaudio",
+    "network",
+    "cpu",
+    "memory",
+    "custom/temperature",
+    "battery",
+    "tray",
+    "power-profiles-daemon",
+    "clock"
+  ],
+  //
+  //
+  "pulseaudio/slider": {
+    "min": 0,
+    "max": 100,
+    "orientation": "horizontal"
+  },
+  "tray": {
+    "icon-size": 20,
+    "spacing": 10
+  },
+  "cpu": {
+    "format": "{usage}% ",
+    "tooltip": false
+  },
+  "memory": {
+    "format": "{used}G "
+  },
+  "custom/temperature": {
+    "format": "CPU: {}",
+    "exec": "sensors | grep 'Package id 0:' | awk '{print $4}' | tr -d '+'",
+    "interval": 10
+  },
+  "backlight": {
+    // "device": "acpi_video1",
+    "format": "{percent}% {icon}",
+    "format-icons": ["", "", "", "", "", "", "", "", ""]
+  },
+  "battery": {
+    "states": {
+      // "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{capacity}% {icon}",
+    "format-full": "{capacity}% {icon}",
+    "format-charging": "{capacity}% ",
+    "format-plugged": "{capacity}% ",
+    "format-alt": "{time} {icon}",
+    "format-icons": ["", "", "", "", ""]
+  },
+  "battery#bat2": {
+    "bat": "BAT2"
+  },
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "",
+      "performance": "",
+      "balanced": "",
+      "power-saver": ""
+    }
+  },
+  "network": {
+    "format-wifi": "{essid} ({signalStrength}%) ",
+    "format-ethernet": "{ipaddr}/{cidr} ",
+    "tooltip-format": "{ifname} via {gwaddr} ",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": "Disconnected ⚠",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}"
+  },
+  "pulseaudio": {
+    "format": "{volume}% {icon}    {format_source}",
+    "format-bluetooth": "{volume}% {icon} {format_source}",
+    "format-bluetooth-muted": " {icon} {format_source}",
+    "format-muted": " {format_source}",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
+    },
+    "on-click": "pavucontrol"
+  },
+  "custom/media": {
+    "format": "{}  ",
+    "return-type": "json",
+    "escape": true,
+    "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify",
+    "on-click": "playerctl --player=spotify play-pause"
+  },
+  "custom/power": {
+    "format": "⏻ ",
+    "tooltip": false,
+    "menu": "on-click",
+    "menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
+    "menu-actions": {
+      "shutdown": "shutdown",
+      "reboot": "reboot",
+      "suspend": "systemctl suspend",
+      "hibernate": "systemctl hibernate"
+    }
+  }
+}
