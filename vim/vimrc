@@ -1,0 +1,27 @@
+" Habilitar números de línea
+set number
+set relativenumber
+
+" Habilitar indentación automática
+set autoindent
+set smartindent
+
+" Usar espacios en lugar de tabs
+set expandtab
+set tabstop=4
+set shiftwidth=4
+
+" Habilitar búsqueda incremental y sin distinguir mayúsculas
+set incsearch
+set ignorecase
+set smartcase
+
+" Mostrar coincidencias mientras escribes
+set showmatch
+
+" Desactivar sonidos
+set noerrorbells
+
+" Habilitar coloreado de sintaxis
+syntax on
+
