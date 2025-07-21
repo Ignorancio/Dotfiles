@@ -1,4 +1,6 @@
 [pacman]
 otf-font-awesome
+noto-fonts-emoji
 [yay]
 ttf-hack-nerd
+ttf-google-fonts-git
