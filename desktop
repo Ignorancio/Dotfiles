@@ -1,13 +1,7 @@
 [pacman]
-zsh
 pavucontrol
-power-profiles-daemon
-wl-clipboard
-cliphist
 firefox
-htop
 waybar
-docker
 [yay]
 visual-studio-code-bin
 jetbrains-toolbox
