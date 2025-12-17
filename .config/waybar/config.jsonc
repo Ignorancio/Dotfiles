@@ -1,12 +1,8 @@
 {
   "height": 30,
-  "spacing": 5,
-
-  //   "modules-left": ["sway/workspaces", "custom/media"],
-  //   "modules-center": ["sway/window"],
-
-  "modules-left": ["hyprland/workspaces", "custom/media"],
-  "modules-center": ["hyprland/window"],
+  "spacing": 4,
+  "modules-left": ["hyprland/workspaces"],
+  "modules-center": ["custom/media"],
   "modules-right": [
     "pulseaudio/slider",
     "pulseaudio",
