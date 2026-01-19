@@ -6,5 +6,6 @@ rofi
 [yay]
 visual-studio-code-bin
 jetbrains-toolbox
-discord
 spotify
+[manual]
+discord
