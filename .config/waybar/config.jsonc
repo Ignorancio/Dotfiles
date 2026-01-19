@@ -6,14 +6,14 @@
   "modules-right": [
     "pulseaudio/slider",
     "pulseaudio",
-    "network",
+    //"network",
     "cpu",
     "memory",
-    "custom/temperature",
     "battery",
     "tray",
     "power-profiles-daemon",
-    "clock"
+    "clock",
+    "custom/power"
   ],
   //
   //
@@ -24,7 +24,8 @@
   },
   "tray": {
     "icon-size": 20,
-    "spacing": 10
+    "spacing": 10,
+    "show-passive-items": true
   },
   "cpu": {
     "format": "{usage}% ",
@@ -32,11 +33,6 @@
   },
   "memory": {
     "format": "{used}G "
-  },
-  "custom/temperature": {
-    "format": "CPU: {}",
-    "exec": "sensors | grep 'Package id 0:' | awk '{print $4}' | tr -d '+'",
-    "interval": 10
   },
   "backlight": {
     // "device": "acpi_video1",
