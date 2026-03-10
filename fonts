@@ -1,6 +1,7 @@
 [pacman]
 otf-font-awesome
 noto-fonts-emoji
+ttf-jetbrains-mono-nerd
 [yay]
 ttf-hack-nerd
 ttf-google-fonts-git

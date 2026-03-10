@@ -1,0 +1,187 @@
+exec "dbus-update-activation-environment --systemd --all "
+exec "dbus-update-activation-environment --systemd XDG_CURRENT_DESKTOP=sway "
+
+# --- Variables ---
+set $mod Mod4
+set $term ghostty
+set $fileManager dolphin
+set $menu rofi -show drun
+
+# --- Pesonales ---
+# Desactivar que el foco siga al mouse (Click to Focus)
+focus_follows_mouse no
+
+# --- Fuente ---
+font pango:JetBrainsMono Nerd Font 10
+
+# --- Outputs (Monitores) ---
+# Sintaxis: output <nombre> resolution <res> position <pos>
+output DP-1 resolution 1920x1080 position 0 0
+output eDP-1 resolution 1920x1080 position 1920 0
+
+# --- Inputs (Teclado y Mouse) ---
+input * {
+    xkb_layout "latam"
+}
+
+input type:touchpad {
+    dwt enabled
+    tap enabled
+    natural_scroll disabled
+}
+
+# Configuración específica del mouse (si el ID cambia, usa 'swaymsg -t get_inputs' para verlo)
+input "epic-mouse-v1" {
+    # La sensibilidad en Sway va de -1.0 a 1.0, ajusta si se siente diferente a Hyprland
+    pointer_accel -0.7
+}
+
+# --- Apariencia (Gaps y Bordes) ---
+# En Sway "gaps" son el espacio entre ventanas
+gaps inner 1
+gaps outer 1
+
+# Eliminar bordes y barras de título (equivalente a border_size = 0)
+default_border none
+default_floating_border none
+
+# --- Autostart ---
+exec $term
+exec wl-paste --watch cliphist store
+exec wlsunset -l -12 -L -77
+
+# --- Keybindings ---
+
+# Recargar configuración (Shift + Super + C es el estándar en Sway, pero puedes usar tu comando)
+bindsym $mod+Shift+space exec killall waybar || waybar
+# Para recargar Sway mismo:
+bindsym $mod+Shift+c reload
+
+# Clipboard
+bindsym $mod+v exec cliphist list | rofi -dmenu | cliphist decode | wl-copy
+
+# Screenshot (Grim + Slurp)
+bindsym $mod+f exec grim -g "$(slurp)" - | wl-copy --type image/png
+
+# Aplicaciones Básicas
+bindsym $mod+Return exec $term
+bindsym $mod+w kill
+bindsym $mod+Shift+m exec swaymsg exit
+bindsym $mod+e exec $fileManager
+bindsym $mod+q floating toggle
+bindsym $mod+space exec $menu
+bindsym $mod+d fullscreen
+
+# --- Movimiento de Foco (Tu configuración personalizada) ---
+# J=Izquierda, L=Derecha, I=Arriba, K=Abajo
+bindsym $mod+j focus left
+bindsym $mod+l focus right
+bindsym $mod+i focus up
+bindsym $mod+k focus down
+
+# Mover ventanas (mismas teclas + Shift)
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+i move up
+bindsym $mod+Shift+k move down
+
+# --- 1. Cambiar de Workspace (Mod + Número) ---
+# Ejecuta switch_ws.sh: Si estás en el monitor secundario, suma +10 automáticamente.
+bindsym $mod+1 exec ~/.config/sway/scripts/switch_ws.sh 1
+bindsym $mod+2 exec ~/.config/sway/scripts/switch_ws.sh 2
+bindsym $mod+3 exec ~/.config/sway/scripts/switch_ws.sh 3
+bindsym $mod+4 exec ~/.config/sway/scripts/switch_ws.sh 4
+bindsym $mod+5 exec ~/.config/sway/scripts/switch_ws.sh 5
+bindsym $mod+6 exec ~/.config/sway/scripts/switch_ws.sh 6
+bindsym $mod+7 exec ~/.config/sway/scripts/switch_ws.sh 7
+bindsym $mod+8 exec ~/.config/sway/scripts/switch_ws.sh 8
+bindsym $mod+9 exec ~/.config/sway/scripts/switch_ws.sh 9
+bindsym $mod+0 exec ~/.config/sway/scripts/switch_ws.sh 10
+
+# --- 2. Mover Ventana a Workspace (Mod + Shift + Número) ---
+# Ejecuta move_window.sh: Mueve la ventana calculando el offset +10 si es necesario.
+bindsym $mod+Shift+1 exec ~/.config/sway/scripts/move_window.sh 1
+bindsym $mod+Shift+2 exec ~/.config/sway/scripts/move_window.sh 2
+bindsym $mod+Shift+3 exec ~/.config/sway/scripts/move_window.sh 3
+bindsym $mod+Shift+4 exec ~/.config/sway/scripts/move_window.sh 4
+bindsym $mod+Shift+5 exec ~/.config/sway/scripts/move_window.sh 5
+bindsym $mod+Shift+6 exec ~/.config/sway/scripts/move_window.sh 6
+bindsym $mod+Shift+7 exec ~/.config/sway/scripts/move_window.sh 7
+bindsym $mod+Shift+8 exec ~/.config/sway/scripts/move_window.sh 8
+bindsym $mod+Shift+9 exec ~/.config/sway/scripts/move_window.sh 9
+bindsym $mod+Shift+0 exec ~/.config/sway/scripts/move_window.sh 10
+
+# --- 3. Sincronizar Monitores (Mod + Ctrl + Número) ---
+# Ejecuta sync_ws.sh: Pone el workspace N en el principal y N+10 en el secundario a la vez.
+bindsym $mod+Ctrl+1 exec ~/.config/sway/scripts/sync_ws.sh 1
+bindsym $mod+Ctrl+2 exec ~/.config/sway/scripts/sync_ws.sh 2
+bindsym $mod+Ctrl+3 exec ~/.config/sway/scripts/sync_ws.sh 3
+bindsym $mod+Ctrl+4 exec ~/.config/sway/scripts/sync_ws.sh 4
+bindsym $mod+Ctrl+5 exec ~/.config/sway/scripts/sync_ws.sh 5
+bindsym $mod+Ctrl+6 exec ~/.config/sway/scripts/sync_ws.sh 6
+bindsym $mod+Ctrl+7 exec ~/.config/sway/scripts/sync_ws.sh 7
+bindsym $mod+Ctrl+8 exec ~/.config/sway/scripts/sync_ws.sh 8
+bindsym $mod+Ctrl+9 exec ~/.config/sway/scripts/sync_ws.sh 9
+bindsym $mod+Ctrl+0 exec ~/.config/sway/scripts/sync_ws.sh 10
+
+# --- 4. Definición de asignaciones fijas (Opcional pero recomendado) ---
+# Esto asegura que si usas comandos nativos o al inicio, los workspaces vayan a su sitio
+workspace 1 output DP-1
+workspace 2 output DP-1
+workspace 3 output DP-1
+workspace 4 output DP-1
+workspace 5 output DP-1
+workspace 6 output DP-1
+workspace 7 output DP-1
+workspace 8 output DP-1
+workspace 9 output DP-1
+workspace 10 output DP-1
+
+workspace 11 output eDP-1
+workspace 12 output eDP-1
+workspace 13 output eDP-1
+workspace 14 output eDP-1
+workspace 15 output eDP-1
+workspace 16 output eDP-1
+workspace 17 output eDP-1
+workspace 18 output eDP-1
+workspace 19 output eDP-1
+workspace 20 output eDP-1
+
+# --- Scratchpad (Special Workspace) ---
+bindsym $mod+s scratchpad show
+bindsym $mod+Shift+s move scratchpad
+
+# --- Resize y Move con Mouse ---
+# En Sway esto es flotante_modifier
+floating_modifier $mod normal
+
+# --- Multimedia Keys ---
+bindsym XF86AudioRaiseVolume exec wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindsym XF86MonBrightnessUp exec brightnessctl -e4 -n2 set 5%+
+bindsym XF86MonBrightnessDown exec brightnessctl -e4 -n2 set 5%-
+
+# Playerctl
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPause exec playerctl play-pause
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPrev exec playerctl previous
+
+# Borde de 1 píxel para ventanas normales
+default_border pixel 1
+
+# Borde de 1 píxel para ventanas flotantes
+default_floating_border pixel 1
+
+# --- Colores de los bordes (Opcional) ---
+# Si no configuras esto, usará el azul por defecto de Sway.
+# Aquí pongo un gris oscuro similar al que tenías en Hyprland (0xff444444):
+
+# Sintaxis: client.clase borde fondo texto indicador borde_hijo
+client.focused          #444444 #444444 #ffffff #444444 #444444
+client.focused_inactive #333333 #333333 #888888 #333333 #333333
+client.unfocused        #222222 #222222 #888888 #222222 #222222
+client.urgent           #2f343a #900000 #ffffff #900000 #900000
