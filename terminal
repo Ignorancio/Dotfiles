@@ -18,3 +18,4 @@ python-gobject  #lo mismo de arriba
 polkit-gnome #Creo que sirven para poder transmitir pantalla
 qt5-wayland # Lo mismo
 qt6-wayland # Lo mismo
+wlsunset # Para el cambio automático de tema según la hora del día
