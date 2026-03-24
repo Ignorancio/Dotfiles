@@ -1,5 +1,7 @@
+# Al principio de tu archivo de configuración
+#exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY
+#exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 exec "dbus-update-activation-environment --systemd --all "
-exec "dbus-update-activation-environment --systemd XDG_CURRENT_DESKTOP=sway "
 
 # --- Variables ---
 set $mod Mod4
@@ -49,6 +51,8 @@ default_floating_border none
 exec $term
 exec wl-paste --watch cliphist store
 exec wlsunset -l -12 -L -77
+exec nm-applet
+exec mako
 
 # --- Keybindings ---
 
