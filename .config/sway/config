@@ -1,7 +1,4 @@
-# Al principio de tu archivo de configuración
-#exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY
-#exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-exec "dbus-update-activation-environment --systemd --all "
+include /etc/sway/config.d/*
 
 # --- Variables ---
 set $mod Mod4
@@ -49,7 +46,8 @@ default_floating_border none
 
 # --- Autostart ---
 exec $term
-exec wl-paste --watch cliphist store
+exec wl-paste --type text --watch cliphist store
+exec wl-paste --type image --watch cliphist store
 exec wlsunset -l -12 -L -77
 exec nm-applet
 exec mako
@@ -88,6 +86,11 @@ bindsym $mod+Shift+j move left
 bindsym $mod+Shift+l move right
 bindsym $mod+Shift+i move up
 bindsym $mod+Shift+k move down
+
+bindsym $mod+Left focus left
+bindsym $mod+Right focus right
+bindsym $mod+Up focus up
+bindsym $mod+Down focus down
 
 # --- 1. Cambiar de Workspace (Mod + Número) ---
 # Ejecuta switch_ws.sh: Si estás en el monitor secundario, suma +10 automáticamente.
@@ -161,9 +164,12 @@ bindsym $mod+Shift+s move scratchpad
 floating_modifier $mod normal
 
 # --- Multimedia Keys ---
-bindsym XF86AudioRaiseVolume exec wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
-bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym --locked XF86AudioRaiseVolume exec wpctl status | grep -A 10 "Sinks:" | grep -oP '^\s*(│\s*)?(\*?\s*)?\K\d+' | xargs -I {} wpctl set-volume -l 1.0 {} 5%+
+# Bajar volumen
+bindsym --locked XF86AudioLowerVolume exec wpctl status | grep -A 10 "Sinks:" | grep -oP '^\s*(│\s*)?(\*?\s*)?\K\d+' | xargs -I {} wpctl set-volume {} 5%-
+# Mutear
+bindsym --locked XF86AudioMute exec wpctl status | grep -A 10 "Sinks:" | grep -oP '^\s*(│\s*)?(\*?\s*)?\K\d+' | xargs -I {} wpctl set-mute {} toggle
+
 bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 bindsym XF86MonBrightnessUp exec brightnessctl -e4 -n2 set 5%+
 bindsym XF86MonBrightnessDown exec brightnessctl -e4 -n2 set 5%-
