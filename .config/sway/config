@@ -2,7 +2,7 @@ include /etc/sway/config.d/*
 
 # --- Variables ---
 set $mod Mod4
-set $term ghostty
+set $term alacritty
 set $fileManager dolphin
 set $menu rofi -show drun
 
