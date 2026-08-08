@@ -1,0 +1,4 @@
+visual-studio-code-bin
+brave-bin
+ttf-google-fonts-git
+jetbrains-toolbox

@@ -32,3 +32,11 @@ zsh
 playerctl
 python-gobject
 network-manager-applet
+base-devel
+ttf-jetbrains-mono-nerd
+xorg-xwayland
+btop
+noto-fonts-emoji
+rtkit
+xdg-desktop-portal
+xdg-desktop-portal-wlr
