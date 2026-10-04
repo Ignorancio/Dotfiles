@@ -23,16 +23,15 @@ cp .config/.zshrc ~/
 mkdir -p ~/.config/alacritty/themes
 git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
 
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
+git clone https://aur.archlinux.org/yay.git /tmp/yay
+cd /tmp/yay
+makepkg -si --noconfirm
+cd -
 
-cd ..
-yay -S < aur.txt
+xargs -a aur.txt yay -S --needed --noconfirm
 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
 
-sudo systemctl start docker
 sudo systemctl enable docker
 sudo usermod -aG docker $USER
 
