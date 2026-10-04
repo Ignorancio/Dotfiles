@@ -24,11 +24,13 @@ sway
 tmux
 tree
 unzip
+vim
 waybar
 wl-clipboard
 wlsunset
 zip
 zsh
+pavucontrol
 playerctl
 python-gobject
 network-manager-applet
@@ -36,7 +38,7 @@ base-devel
 ttf-jetbrains-mono-nerd
 xorg-xwayland
 btop
-noto-fonts-emoji
 rtkit
+noto-fonts-emoji
 xdg-desktop-portal
 xdg-desktop-portal-wlr
